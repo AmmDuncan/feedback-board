@@ -4,9 +4,7 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import { WhiteCard } from "@/app/WhiteCard";
 
-export function Tags() {
-  const [active, setActive] = React.useState("All");
-  const tags = ["All", "UI", "UX", "Enhancement", "Bug", "Feature"];
+export function Tags({ active, setActive, tags }: {active: string, setActive: React.Dispatch<React.SetStateAction<string>>, tags: string[]}) {
 
   return (
     <WhiteCard>

@@ -1,5 +1,6 @@
-import { Grid } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import { SuggestionCard } from "./SuggestionCard";
+import React from "react";
 
 const dummyList = [
   {
@@ -46,8 +47,13 @@ const dummyList = [
   }
 ]
 
-export function SuggestionList() {
+export function SuggestionList({ activeStatus = 'All' }: {activeStatus: string}) {
+  const filteredList = React.useMemo(() => {
+    if (activeStatus === 'All') return dummyList
+    return dummyList.filter(suggestion => suggestion.tag === activeStatus)
+  }, [activeStatus])
   return <Grid gap={6}>
-    {dummyList.map(suggestion => <SuggestionCard key={suggestion.title} {...suggestion} />)}
+    {!filteredList.length ? <Box textAlign={'center'} p="6">No suggestions found</Box> : ''}
+    {filteredList.map(suggestion => <SuggestionCard key={suggestion.title} {...suggestion} />)}
   </Grid>;
 }
